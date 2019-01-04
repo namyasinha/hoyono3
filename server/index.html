@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      
+      <style>
+        body
+{
+    background: #f5f5f5;
+}
+
+h5
+{
+    font-weight: 400;
+}
+
+.container
+{
+    margin-top: 80px;
+    width: 400px;
+    height: 650px;
+}
+
+.tabs .indicator
+{
+    background-color: #e0f2f1;
+    height: 60px;
+    opacity: 0.3;
+}
+
+.form-container
+{
+    padding: 40px;
+    padding-top: 10px;
+}
+
+.confirmation-tabs-btn
+{
+    position: absolute;
+}  
+      </style>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+<body bgcolor="black">
+    
+        
+<div class="container white z-depth-2">
+    <div class="card-panel teal lighten-2">
+         <h5 class="center-align">LOGIN</h5>
+         </div>
+        
+    
+    <div id="login" class="col s12">
+        <form class="col s12"id="postData">
+            <div class="form-container">
+                
+                <div class="row">
+                    <div class="input-field col s12"><i class="small material-icons prefix">email</i>
+                        <input id="email" type="email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12"><i class="small material-icons prefix">lock</i>
+                        <input id="password" type="password" class="validate"placeholder="password">
+                        
+                    </div>
+                </div>
+                <br>
+                <center>
+                    <button class="btn waves-effect waves-light teal" type="submit" name="action"id="ok">Login</button>
+                    <br>
+                    <br>
+                    
+                    <a href="http://localhost:3000/register"><u>Register?</u></a>
+                </center>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+
+
+
+<script>
+    document.getElementById('postData').addEventListener('submit',postData);
+    function postData(e){
+        e.preventDefault();
+
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        fetch('http://localhost:3000/api/login',{
+            method:'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({email:email,password:password})
+        }).then((res)=>{
+            return res.json();
+        })
+            .then((data)=>{
+                console.log(data);
+                if(data.status=="ok"){
+                    window.location.href="http://localhost:3000/post"
+                }
+                else{
+                    alert("Entered wrong credentials");
+                }
+            })
+    }
+
+</script>
+</body>
+</html>
